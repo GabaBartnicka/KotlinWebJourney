@@ -9,7 +9,7 @@ public class HelloController {
     
     @GetMapping("/")
     public String hello() {
-        Greeting greeting = new Greeting();
+        var greeting = new Greeting();
         return "Spring Boot: " + greeting.greet();
     }
 }

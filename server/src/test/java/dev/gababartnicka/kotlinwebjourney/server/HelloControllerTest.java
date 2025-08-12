@@ -17,8 +17,7 @@ public class HelloControllerTest {
 
     @Test
     public void testRoot() throws Exception {
-        Greeting greeting = new Greeting();
-        String expected = "Spring Boot: " + greeting.greet();
+        String expected = "Spring Boot: Hello, Java Server!";
         
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())

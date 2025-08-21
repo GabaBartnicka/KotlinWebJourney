@@ -1,5 +1,6 @@
 package dev.gababartnicka.kotlinwebjourney
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -12,7 +13,9 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 
 @Composable
-fun TaskListScreen() {
+fun TaskListScreen(
+    onTaskClick: (Long) -> Unit = {}
+) {
     var tasks by remember { mutableStateOf<List<Task>>(emptyList()) }
     var isLoading by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
@@ -114,7 +117,10 @@ fun TaskListScreen() {
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     items(tasks) { task ->
-                        TaskItem(task = task)
+                        TaskItem(
+                            task = task,
+                            onClick = { onTaskClick(task.id) }
+                        )
                     }
                 }
             }
@@ -123,9 +129,14 @@ fun TaskListScreen() {
 }
 
 @Composable
-private fun TaskItem(task: Task) {
+private fun TaskItem(
+    task: Task,
+    onClick: () -> Unit
+) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() },
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(

@@ -1,6 +1,6 @@
 package dev.gababartnicka.kotlinwebjourney.server;
 
-import dev.gababartnicka.kotlinwebjourney.Greeting;
+import dev.gababartnicka.kotlinwebjourney.HelloController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

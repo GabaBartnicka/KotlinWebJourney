@@ -23,7 +23,12 @@ kotlin {
                         add(rootDirPath)
                         add(projectDirPath)
                     }
+                    // Enhanced development configuration
+                    open = true
+                    port = 8081
                 }
+                // Enable automatic refresh on rebuild
+                mode = org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig.Mode.DEVELOPMENT
             }
         }
         binaries.executable()

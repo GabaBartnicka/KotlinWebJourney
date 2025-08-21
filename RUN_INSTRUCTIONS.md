@@ -19,7 +19,12 @@ Przygotowano 3 konfiguracje uruchamiania w IntelliJ IDEA:
 - **Opis:** Uruchamia frontend Compose Multiplatform w trybie production
 - **URL:** Automatycznie otworzy się przeglądarka
 
-### 4. **Build All**
+### 4. **Compose Frontend Hot Reload** ⚡
+- **Zadanie:** `composeApp:wasmJsBrowserDevelopmentRun --continuous`
+- **Opis:** Frontend z automatyczną rekompilacją przy zmianach
+- **URL:** http://localhost:8081
+
+### 5. **Build All**
 - **Zadanie:** `build`
 - **Opis:** Buduje cały projekt (shared, frontend, backend)
 
@@ -45,11 +50,14 @@ Przygotowano 3 konfiguracje uruchamiania w IntelliJ IDEA:
 # Uruchom frontend w trybie deweloperskim
 ./gradlew composeApp:wasmJsBrowserDevelopmentRun
 
+# Frontend z HOT RELOAD (automatyczna rekompilacja) ⚡
+./gradlew composeApp:wasmJsBrowserDevelopmentRun --continuous
+
 # Lub w trybie produkcyjnym
 ./gradlew composeApp:wasmJsBrowserProductionRun
 
-# Frontend automatycznie otworzy przeglądarkę
-# Tryb development ma hot reload i debugging
+# Frontend automatycznie otworzy przeglądarkę na porcie 8081
+# Tryb continuous ma natychmiastowy hot reload przy zmianach
 ```
 
 ### Budowanie całego projektu
@@ -90,10 +98,40 @@ KotlinWebJourney/
 └── .idea/runConfigurations/  # Konfiguracje IntelliJ
 ```
 
+## ⚡ Hot Reload - Jak to działa
+
+**Problem z Kotlin/Wasm:** Standardowy hot reload nie działa z WebAssembly. Oto rozwiązania:
+
+### 🥇 Najlepsze rozwiązanie - Development Script
+
+```bash
+# Uruchom development server z auto-kompilacją
+./dev-server.sh
+```
+
+**Co robi:**
+1. **Continuous compilation** - Gradle automatycznie rekompiluje przy zmianach
+2. **HTTP server** na porcie 8081
+3. **Instrukcje** jak zobaczyć zmiany
+
+### Jak używać:
+1. Uruchom `./dev-server.sh` w terminalu
+2. Otwórz http://localhost:8081 w przeglądarce
+3. Edytuj pliki w `composeApp/` lub `shared/`
+4. Zapisz plik (Ctrl+S)
+5. Poczekaj na "BUILD SUCCESSFUL"
+6. **Odśwież przeglądarkę (F5)** 🔄
+
+### 🥈 Alternatywnie - IntelliJ IDEA
+
+**"Compose Frontend Watch"** - tylko kompilacja (musisz ręcznie odświeżać)
+**"Compose Frontend Hot Reload"** - webpack dev server (może nie działać)
+
 ## ⚙️ Porty i URL-e
 
 - **Backend:** http://localhost:8080
-- **Frontend Dev Server:** Automatycznie przydzielany port (zwykle 8080 lub wyższy)
+- **Frontend (Hot Reload):** http://localhost:8081 ⚡
+- **Frontend (zwykły):** Automatycznie przydzielany port
 
 ## 🐛 Debugging
 

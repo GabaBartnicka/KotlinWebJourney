@@ -1,6 +1,5 @@
-package dev.gababartnicka.kotlinwebjourney.server;
+package dev.gababartnicka.kotlinwebjourney;
 
-import dev.gababartnicka.kotlinwebjourney.Greeting;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

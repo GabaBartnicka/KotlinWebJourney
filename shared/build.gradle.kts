@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-
+    alias(libs.plugins.kotlinxSerialization)
 }
 
 kotlin {
@@ -28,7 +28,15 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            // put your Multiplatform dependencies here
+            implementation(libs.ktor.clientCore)
+            implementation(libs.ktor.clientContentNegotiation)
+            implementation(libs.ktor.serializationKotlinxJson)
+            implementation(libs.kotlinx.serializationJson)
+        }
+        val wasmJsMain by getting {
+            dependencies {
+                implementation(libs.ktor.clientJs)
+            }
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

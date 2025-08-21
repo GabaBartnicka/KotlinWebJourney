@@ -1,5 +1,9 @@
 package dev.gababartnicka.kotlinwebjourney.tasks;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -7,24 +11,24 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/tasks")
 public class TaskController {
 
     private final TaskRepository repository;
 
-    public TaskController(TaskRepository repository) {
-        this.repository = repository;
-    }
-
     @GetMapping
     public List<TaskDto> getAll() {
+		log.info("GET /api/tasks");
         var tasks = repository.findAll();
         return tasks.stream().map(TaskDto::fromEntity).toList();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<TaskDto> getById(@PathVariable Long id) {
+		log.info("GET /api/tasks/{}", id);
         var maybe = repository.findById(id).map(TaskDto::fromEntity);
         return maybe.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
